@@ -48,6 +48,7 @@ void make_gnuplot_file(int iter_number, double a, double b)
     string filename = "pics/gnuplot/" + string(buf) + ".gnu";
 
     ofstream file(filename.c_str());
+    file << fixed << setprecision(PRECISION);
 
     file << "set terminal png \n";
     file << "set output \"pngs/" << buf << ".png\" \n";
@@ -55,7 +56,6 @@ void make_gnuplot_file(int iter_number, double a, double b)
     double x = (a + b) / 2;
     double error = x - a;
 
-    file << fixed;
     file << "set title \"x = " << x << " +- " << error << " ("
          << (error / x * 100) << "%) \" \n";
 

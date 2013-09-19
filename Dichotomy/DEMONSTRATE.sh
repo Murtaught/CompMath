@@ -1,11 +1,7 @@
 echo "Preparing demo directory..."
-
 rm -rf demo
-mkdir demo
-
-mkdir demo/pics
-mkdir demo/pics/gnuplot
-mkdir demo/pics/pngs
+mkdir -p demo/pics/gnuplot
+mkdir -p demo/pics/pngs
 
 echo "Compiling..."
 g++ main.cpp -o demo/Dichotomy
