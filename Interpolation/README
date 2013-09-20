@@ -1,0 +1,17 @@
+1.) Сначала нужно скомплировать программу, предварительно
+внеся желательные изменения в settings.h.
+	Edit settings.h and compile the program.
+
+$ g++ main.cpp -o interpolation
+
+2.) Затем запустить программу из текущей директории, дабы она 
+сгенерировала входные файлы для gnuplot.
+	Start program from current directory.
+	
+$ ./interpolation
+
+3.) После чего вызвать gnuplot и сгенерировать картинку. Я уже записал 
+команду для вызова в скрипт plot.sh.
+	Launch plot.sh script that uses gnuplot to generate image for X11 terminal.
+
+$ ./plot.sh
