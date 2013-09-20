@@ -12,6 +12,9 @@ const int N = 18; // число итераций
 const int PRECISION = 4; // точность вывода на экран чисел с
                          // плавющей точкой, знаки после запятой
 
+const double acceptable = 0.001; // точность с которой мы вычисляем корень
+                         // (погрешность должна быть меньше acceptable)
+
 const double start_a = 0;  // Отрезок [a;b], на котором ищем корень
 const double start_b = 5;
 
@@ -86,14 +89,16 @@ void dichotomy()
     cout << "Метод деления пополам (дихотомия):" << endl;
 
     double c;
-    for (int i = 0; i < N; ++i)
+    for (int i = 0; ; ++i)
     {
         c = (a + b) / 2;
 
         cout << "Итерация №" << i << ": ";
         print_x(c, c - a);
-
         make_gnuplot_file(i, a, b);
+
+        if ( (c - a) < acceptable )
+            break;
 
         // если знаки функции в точках a и c равны...
         if ( sgn(f(a)) == sgn(f(c)) )
