@@ -39,7 +39,7 @@ void make_gnuplot_file(int i, double x, double error)
     string filename = "pics/gnuplot/" + string(buf) + ".gnu";
 
     ofstream file(filename.c_str());
-    file << fixed << setprecision(print_precision);
+    file << fixed << setprecision(print_precision) << csrc_double;
 
     file << "set terminal png size 1024,768\n";
     file << "set output \"pngs/" << buf << ".png\" \n";

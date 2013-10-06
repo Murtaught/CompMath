@@ -4,7 +4,10 @@ mkdir -p demo/pics/gnuplot
 mkdir -p demo/pics/pngs
 
 echo "Compiling..."
-g++ main.cpp -o demo/Newton
+g++ -lcln -lginac main.cpp -o demo/Newton
+
+echo "Copying..."
+cp inputf.txt demo/
 
 echo "Launching..."
 cd demo
