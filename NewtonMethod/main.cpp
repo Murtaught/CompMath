@@ -6,13 +6,7 @@
 using namespace std;
 
 #include <ginac/ginac.h>
-
-namespace math
-{
-    // uBlas here
-    using namespace GiNaC;
-}
-using namespace math;
+namespace math = GiNaC;
 
 
 int print_precision = 4;      // точность вывода double
@@ -40,7 +34,7 @@ void make_gnuplot_file(int i, double x, double error)
     string filename = "pics/gnuplot/" + string(buf) + ".gnu";
 
     ofstream file(filename.c_str());
-    file << fixed << setprecision(print_precision) << csrc_double;
+    file << fixed << setprecision(print_precision) << math::csrc_double;
 
     file << "set terminal png size 1024,768\n";
     file << "set output \"pngs/" << buf << ".png\" \n";
