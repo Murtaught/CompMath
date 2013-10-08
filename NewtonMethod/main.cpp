@@ -61,7 +61,7 @@ void make_gnuplot_file(int i, double x, double error)
 void print_x(int i, double x, double error)
 {
     cout << "x_" << i << " = " << x << ";  ";
-    cout << "|x_" << i << " - xi| <= " << error << ";" << endl;
+    cout << "|x_" << i << " - x*| <= " << error << ";" << endl;
 }
 
 void newton_method()
