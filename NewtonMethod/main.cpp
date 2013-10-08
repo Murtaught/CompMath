@@ -26,6 +26,7 @@ double M, m;                  // M = max( f"(x) );  m = min( f'(x) );  a <= x <=
 double max_allowed_error = 0.0001; // до какой точности будем считать
 
 
+// Численно посчитать GiNaC'овское выражение
 double eval_at(const math::ex &expr, double x_val)
 {
     math::ex temp = expr.subs(x == x_val).evalf();
@@ -66,7 +67,6 @@ void make_gnuplot_file(int i, double x, double error)
 void print_x(int i, double x, double error)
 {
     cout << "x_" << i << " = " << x << ";  ";
-
     cout << "|x_" << i << " - xi| <= " << error << ";" << endl;
 }
 
