@@ -113,8 +113,12 @@ void make_gnuplot_file(int i, double x, double error)
 
     file << "set xtics add (\"x" << i << "\" " << x << ") \n";
 
+    file << "set style arrow 1 nohead \n";
+    file << "set arrow from " << x << ", 0 to " << x << ", phi(" << x << ") \n";
+    file << "set arrow from " << x << ", phi(" << x << ") to phi(" << x << "), phi(" << x << ") \n";
+    file << "set arrow from phi(" << x << "), phi(" << x << ") to phi(" << x << "), 0 \n";
 
-    file << "plot f(x) lt 1, g(x) lt 3 \n";
+    file << "plot phi(x) lt 1, x_(x) lt 3 \n";
 }
 
 void print_x(int i, double x, double error)
