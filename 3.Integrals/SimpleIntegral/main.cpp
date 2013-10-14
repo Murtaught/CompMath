@@ -13,7 +13,7 @@ double a, b;                // пределы интегрирования
 math::symbol x("x");        // переменная x с точки зрения GiNaC
 math::ex f;                 // f(x), мы её интегрируем
 
-double M_d2f;               // максимальное значение d2f
+double M_d2f;               // максимальное значение d2f (для расч. погрешности)
 int N;                      // количество отрезков dx для интегрирования
 
 double max_allowed_error;   // максимальная допустимая погрешность
@@ -33,8 +33,7 @@ void read_input(string filename)
     string f_str;
     getline(file, f_str); // считать всю строчку
 
-    file >> a >> b; // интервал где находится корень и
-                    // выполняются 3 условия из Фихтенгольца
+    file >> a >> b;
 
     file >> max_allowed_error;
     file >> print_precision;
@@ -78,15 +77,22 @@ void find_M_d2f()
 
 void find_appropriate_N()
 {
+    // Ищем такое N (число прямоугольников для разбиения)
+    // чтобы погрешность была меньше заданной
+
+    // temp = R_n * n^2 = f"(z) * (b - a)^3 / 24, где a <= z <= b
+    // Доказательство см. 2 том Фихтенгольца, стр. 159
     double temp = (b - a);
     temp = temp * temp * temp;
     temp /= 24;
     temp *= M_d2f;
 
+    // Просто линейно увеличиваем N и высчитываем
+    // R_n для каждого значения N
     for (N = 1; ; ++N)
     {
         double R_n = temp / (N * N);
-        cout << "R_" << N << " = " << R_n << endl;
+        ///cout << "R_" << N << " = " << R_n << endl;
 
         if ( R_n < max_allowed_error )
             break;
@@ -102,22 +108,23 @@ void simple_integral()
     cout << "    [a, b] = [" << a << ", " << b << "]\n";
     cout << "    N      = " << N << endl;
 
-    cout << "\nProcess:" << endl;
+    ///cout << "\nProcess:" << endl;
 
     double sum     = 0;
     double dx      = (b - a) / N;
     for (int i = 0; i < N; ++i)
     {
-        double x_i     = a + ((b - a) / N) * i;
-        double x_iplus = a + ((b - a) / N) * (i + 1);
-        double x_cur   = (x_i + x_iplus) / 2;
+        // это точка ровно посередине отрезка под номером i
+        double x_cur   = a + dx * (2 * i + 1) / 2;
 
+        // инкремент - площадь прямоугольника
         double increm   = dx * eval_at(f, x_cur);
         sum            += increm;
 
-        cout << "i = " << i << ", x_cur = " << x_cur << ", increment = " << increm << endl;
+        ///cout << "i = " << i << ", x_cur = " << x_cur << ", increment = " << increm << endl;
     }
 
+    // Профит!
     cout << "\nIntegral sum = " << sum << endl;
 }
 
@@ -127,14 +134,8 @@ int main()
     cout << fixed << setprecision(print_precision);
 
     find_M_d2f();
-
     find_appropriate_N();
-
     simple_integral();
-
-
-
-
 
     return 0;
 }
