@@ -15,9 +15,7 @@ math::ex f;                 // f(x), мы её интегрируем
 
 double M_d2f;               // максимальное значение d2f (для расч. погрешности)
 int N;                      // количество отрезков dx для интегрирования
-
 double max_allowed_error;   // максимальная допустимая погрешность
-
 int pics_n;                 // количество картинок
 
 
@@ -135,7 +133,7 @@ void find_appropriate_N()
         ///cout << "R_" << N << " = " << R_n << endl;
 
         // Хорошего понемногу
-        if ( N < pics_n )
+        if ( N <= pics_n )
             make_gnuplot_file(N, R_n);
 
         if ( R_n < max_allowed_error )
