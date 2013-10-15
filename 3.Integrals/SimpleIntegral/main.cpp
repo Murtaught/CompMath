@@ -18,6 +18,8 @@ int N;                      // количество отрезков dx для �
 
 double max_allowed_error;   // максимальная допустимая погрешность
 
+int pics_n;                 // количество картинок
+
 
 // Численно посчитать GiNaC'овское выражение
 double eval_at(const math::ex &expr, double x_val)
@@ -37,6 +39,7 @@ void read_input(string filename)
 
     file >> max_allowed_error;
     file >> print_precision;
+    file >> pics_n;
 
     // parsing
     math::symtab table;
@@ -75,6 +78,43 @@ void find_M_d2f()
     cout << "|M_f\"(x)| = " << M_d2f << endl;
 }
 
+void make_gnuplot_file(int n, double error)
+{
+    double dx = (b - a) / N;
+
+    char buf[21];
+    sprintf(buf, "%05d", n);
+    string filename = "pics/gnuplot/" + string(buf) + ".gnu";
+
+    ofstream file(filename.c_str());
+    file << fixed << setprecision(print_precision) << math::csrc_double;
+
+    file << "set terminal png size 1024,768\n";
+    file << "set output \"pngs/" << buf << ".png\" \n";
+
+    file << "set title \"N = " << n << ", error = " << error << "\" \n";
+
+    file << "set xrange [" << a << " : " << b << "]\n";
+
+    file << "set xzeroaxis ls -1 \n";
+    file << "set yzeroaxis ls -1 \n";
+    file << "set grid \n";
+
+    file << "f(x) = " << f << "\n";
+
+    file << "set style rect fc rgb \"orange\" fs noborder \n";
+    for (int i = 0; i < n; ++i)
+    {
+        double x_beg = a + dx * i;
+        double x_end = x_beg + dx;
+
+        file << "set obj rect from " << x_beg << ",0  to "
+             << x_end << ",f(" << ((x_beg + x_end) / 2) << ") `\n";
+    }
+
+    file << "plot f(x) lt 1 \n";
+}
+
 void find_appropriate_N()
 {
     // Ищем такое N (число прямоугольников для разбиения)
@@ -93,6 +133,10 @@ void find_appropriate_N()
     {
         double R_n = temp / (N * N);
         ///cout << "R_" << N << " = " << R_n << endl;
+
+        // Хорошего понемногу
+        if ( N < pics_n )
+            make_gnuplot_file(N, R_n);
 
         if ( R_n < max_allowed_error )
             break;

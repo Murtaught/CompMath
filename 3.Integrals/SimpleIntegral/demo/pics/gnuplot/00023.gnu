@@ -1,0 +1,33 @@
+set terminal png size 1024,768
+set output "pngs/00023.png" 
+set title "N = 23, error = 0.0031324088" 
+set xrange [3.0000000000 : 4.0000000000]
+set xzeroaxis ls -1 
+set yzeroaxis ls -1 
+set grid 
+f(x) = exp(x)*sin(x)
+set style rect fc rgb "orange" fs noborder 
+set obj rect from 3.0000000000,0  to 3.0434782609,f(3.0217391304) `
+set obj rect from 3.0434782609,0  to 3.0869565217,f(3.0652173913) `
+set obj rect from 3.0869565217,0  to 3.1304347826,f(3.1086956522) `
+set obj rect from 3.1304347826,0  to 3.1739130435,f(3.1521739130) `
+set obj rect from 3.1739130435,0  to 3.2173913043,f(3.1956521739) `
+set obj rect from 3.2173913043,0  to 3.2608695652,f(3.2391304348) `
+set obj rect from 3.2608695652,0  to 3.3043478261,f(3.2826086957) `
+set obj rect from 3.3043478261,0  to 3.3478260870,f(3.3260869565) `
+set obj rect from 3.3478260870,0  to 3.3913043478,f(3.3695652174) `
+set obj rect from 3.3913043478,0  to 3.4347826087,f(3.4130434783) `
+set obj rect from 3.4347826087,0  to 3.4782608696,f(3.4565217391) `
+set obj rect from 3.4782608696,0  to 3.5217391304,f(3.5000000000) `
+set obj rect from 3.5217391304,0  to 3.5652173913,f(3.5434782609) `
+set obj rect from 3.5652173913,0  to 3.6086956522,f(3.5869565217) `
+set obj rect from 3.6086956522,0  to 3.6521739130,f(3.6304347826) `
+set obj rect from 3.6521739130,0  to 3.6956521739,f(3.6739130435) `
+set obj rect from 3.6956521739,0  to 3.7391304348,f(3.7173913043) `
+set obj rect from 3.7391304348,0  to 3.7826086957,f(3.7608695652) `
+set obj rect from 3.7826086957,0  to 3.8260869565,f(3.8043478261) `
+set obj rect from 3.8260869565,0  to 3.8695652174,f(3.8478260870) `
+set obj rect from 3.8695652174,0  to 3.9130434783,f(3.8913043478) `
+set obj rect from 3.9130434783,0  to 3.9565217391,f(3.9347826087) `
+set obj rect from 3.9565217391,0  to 4.0000000000,f(3.9782608696) `
+plot f(x) lt 1 
