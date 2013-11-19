@@ -29,12 +29,6 @@ math::symbol t("t"), y("y"); // переменные с точки зрения 
 
 
 // Численно посчитать GiNaC'овское выражение
-double eval_at(const math::ex &expr, double t_val)
-{
-    math::ex temp = expr.subs(t == t_val).evalf();
-    return math::ex_to<math::numeric>( temp ).to_double();
-}
-
 double eval_at(const math::ex &expr, double t_val, double y_val)
 {
     math::ex temp = expr.subs(t == t_val).subs(y == y_val).evalf();
@@ -43,7 +37,6 @@ double eval_at(const math::ex &expr, double t_val, double y_val)
 
 void read_input(string filename)
 {
-    cout << "wtf?" << endl;
     ifstream file( filename.c_str() );
 
     if ( !file.is_open() )
